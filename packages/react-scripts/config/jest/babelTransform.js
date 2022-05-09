@@ -9,6 +9,8 @@
 'use strict';
 
 const babelJest = require('babel-jest');
+const path = require("path");
+const paths = require('../paths');
 
 const hasJsxRuntime = (() => {
   if (process.env.DISABLE_NEW_JSX_TRANSFORM === 'true') {
@@ -24,6 +26,23 @@ const hasJsxRuntime = (() => {
 })();
 
 module.exports = babelJest.createTransformer({
+  include: [
+    'src',
+    'test',
+    path.join(
+        paths.appNodeModules,
+        "@protobuf-ts",
+        "runtime"
+    )
+  ],
+  plugins: [
+    ["@babel/plugin-proposal-class-properties", {
+      "loose": true
+    }],
+    ["@babel/plugin-transform-classes", {
+      "loose": true
+    }]
+  ],
   presets: [
     [
       require.resolve('babel-preset-react-app'),
