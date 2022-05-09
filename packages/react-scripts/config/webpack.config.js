@@ -403,7 +403,14 @@ module.exports = function (webpackEnv) {
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
-              include: paths.appSrc,
+              include: [
+                paths.appSrc,
+                path.join(
+                    paths.appNodeModules,
+                    "@protobuf-ts",
+                    "runtime"
+                )
+              ],
               loader: require.resolve('babel-loader'),
               options: {
                 customize: require.resolve(
@@ -449,6 +456,12 @@ module.exports = function (webpackEnv) {
                       },
                     },
                   ],
+                  ["@babel/plugin-proposal-class-properties", {
+                    "loose": true
+                  }],
+                  ["@babel/plugin-transform-classes", {
+                    "loose": true
+                  }],
                   isEnvDevelopment &&
                     shouldUseReactRefresh &&
                     require.resolve('react-refresh/babel'),

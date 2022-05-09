@@ -50,7 +50,7 @@ module.exports = (resolve, rootDir, isEjecting) => {
       ),
     },
     transformIgnorePatterns: [
-      '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$',
+      '/node_modules/(?!capacitor-secure-storage-plugin|@protobuf-ts/runtime).+\\.(js)$',
       '^.+\\.module\\.(css|sass|scss)$',
     ],
     modulePaths: modules.additionalModulePaths || [],
@@ -66,7 +66,7 @@ module.exports = (resolve, rootDir, isEjecting) => {
       'jest-watch-typeahead/filename',
       'jest-watch-typeahead/testname',
     ],
-    resetMocks: true,
+    resetMocks: false,
   };
   if (rootDir) {
     config.rootDir = rootDir;
